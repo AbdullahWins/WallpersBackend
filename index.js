@@ -31,12 +31,6 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
-    app.get("/filters", async (req, res) => {
-      const query = {};
-      const cursor = filtersCollection.find(query);
-      const filters = await cursor.toArray();
-      res.send(filters);
-    });
 
     // //users
     // app.post("/user", async (req, res) => {

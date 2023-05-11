@@ -1,10 +1,9 @@
 // routes/filterRoutes.js
-
 const express = require("express");
 const router = express.Router();
 
-const { getFilters } = require("../controllers/filterController");
+const { getAllFilters } = require("../controllers/filterController");
 
-router.get("/", getFilters);
+router.get("/filters", getAllFilters);
 
 module.exports = router;

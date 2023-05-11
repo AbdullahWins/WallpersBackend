@@ -1,6 +1,6 @@
 // controllers/filterController.js
 
-const { filtersCollection } = require("../db/db");
+const { filtersCollection } = require("../database/db");
 
 const getAllFilters = async (req, res) => {
   try {

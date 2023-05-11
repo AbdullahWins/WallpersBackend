@@ -3,19 +3,16 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Import controllers
-const { getAllFilters } = require("./controllers/filterController");
+// Middleware
+app.use(cors());
+app.use(express.json());
 
 // Import database connection
-const { connect } = require("./db/db");
+const { connect } = require("./database/db");
 
 // Import routes
 const userRoutes = require("./routes/userRoutes");
 const filterRoutes = require("./routes/filterRoutes");
-
-// Middleware
-app.use(cors());
-app.use(express.json());
 
 // Routes
 app.use(userRoutes);

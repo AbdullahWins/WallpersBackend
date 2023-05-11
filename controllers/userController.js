@@ -1,5 +1,5 @@
 // user controller
-const { usersCollection } = require("../db/db");
+const { usersCollection } = require("../database/db");
 
 //get all users
 const getAllUsers = async (req, res) => {

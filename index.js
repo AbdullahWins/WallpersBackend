@@ -8,10 +8,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-const dbUserName = process.env.DB_USERNAME;
-const dbPassword = process.env.DB_PASSWORD;
-
-const uri = `mongodb+srv://${dbUserName}:${dbPassword}@jadurjini.9hl5w5n.mongodb.net/?retryWrites=true&w=majority`;
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -20,24 +17,12 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    const usersCollection = client.db("jadurjinidb").collection("users");
-    const salesCollection = client.db("jadurjinidb").collection("sales");
-    const productsCollection = client.db("jadurjinidb").collection("products");
-    const testProductsCollection = client
-      .db("jadurjinidb")
-      .collection("testProducts");
-    const testShopsCollection = client
-      .db("jadurjinidb")
-      .collection("testShops");
-    const testFoodsCollection = client
-      .db("jadurjinidb")
-      .collection("testFoods");
-    const testCartsCollection = client
-      .db("jadurjinidb")
-      .collection("testCarts");
-    const testOrdersCollection = client
-      .db("jadurjinidb")
-      .collection("testOrders");
+    const usersCollection = client
+      .db(process.env.DATABASE_NAME)
+      .collection("users");
+    const filtersCollection = client
+      .db(process.env.DATABASE_NAME)
+      .collection("filters");
 
     //separate apis
     app.get("/users", async (req, res) => {
@@ -46,11 +31,11 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
-    app.get("/sales", async (req, res) => {
+    app.get("/filters", async (req, res) => {
       const query = {};
-      const cursor = salesCollection.find(query);
-      const sales = await cursor.toArray();
-      res.send(sales);
+      const cursor = filtersCollection.find(query);
+      const filters = await cursor.toArray();
+      res.send(filters);
     });
     app.get("/products", async (req, res) => {
       const query = {};
@@ -262,5 +247,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("server running");
+  console.log(`server running at ${port}`);
 });

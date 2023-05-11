@@ -37,136 +37,130 @@ async function run() {
       const filters = await cursor.toArray();
       res.send(filters);
     });
-    app.get("/products", async (req, res) => {
-      const query = {};
-      const cursor = productsCollection.find(query);
-      const products = await cursor.toArray();
-      res.send(products);
-    });
 
-    //users
-    app.post("/user", async (req, res) => {
-      const user = req.body;
-      const result = await usersCollection.insertOne(user);
-      res.send(result);
-    });
+    // //users
+    // app.post("/user", async (req, res) => {
+    //   const user = req.body;
+    //   const result = await usersCollection.insertOne(user);
+    //   res.send(result);
+    // });
 
-    app.get("/user", async (req, res) => {
-      const userMail = req.query.email;
-      const query = { email: userMail };
-      const user = await usersCollection.findOne(query);
-      res.send(user);
-    });
+    // app.get("/user", async (req, res) => {
+    //   const userMail = req.query.email;
+    //   const query = { email: userMail };
+    //   const user = await usersCollection.findOne(query);
+    //   res.send(user);
+    // });
 
-    //cart
-    app.get("/testCart/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const product = await testCartsCollection.findOne(query);
-      res.send(product);
-    });
-    //orderw
-    app.post("/order", async (req, res) => {
-      const order = req.body;
-      const result = await testOrdersCollection.insertOne(order);
-      res.send(result);
-    });
+    // //cart
+    // app.get("/testCart/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: ObjectId(id) };
+    //   const product = await testCartsCollection.findOne(query);
+    //   res.send(product);
+    // });
+    // //orderw
+    // app.post("/order", async (req, res) => {
+    //   const order = req.body;
+    //   const result = await testOrdersCollection.insertOne(order);
+    //   res.send(result);
+    // });
 
-    app.get("/orders/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { userId: id };
-      const cursor = testOrdersCollection.find(query);
-      const orders = await cursor.toArray();
-      res.send(orders);
-    });
+    // app.get("/orders/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { userId: id };
+    //   const cursor = testOrdersCollection.find(query);
+    //   const orders = await cursor.toArray();
+    //   res.send(orders);
+    // });
 
-    app.get("/order", async (req, res) => {
-      const query = {};
-      const cursor = testOrdersCollection.find(query);
-      const order = await cursor.toArray();
-      res.send(order);
-    });
+    // app.get("/order", async (req, res) => {
+    //   const query = {};
+    //   const cursor = testOrdersCollection.find(query);
+    //   const order = await cursor.toArray();
+    //   res.send(order);
+    // });
 
-    //products
-    app.get("/testProducts", async (req, res) => {
-      const query = {};
-      const cursor = testProductsCollection.find(query);
-      const products = await cursor.toArray();
-      res.send(products);
-    });
-    app.get("/testCartProducts", async (req, res) => {
-      const cartId = req.body;
-      console.log(cartId);
-      const cart = [];
-      const cartInReq = [cartId._id];
-      // cartId.map((id) => {
-      //   cartInReq.push(ObjectId(id));
-      // });
-      try {
-        const cursor = testProductsCollection.find({
-          _id: {
-            $in: ObjectId(cartInReq),
-          },
-        });
-        const product = await cursor.toArray();
-        cart.push(product);
-        res.send(cart);
-      } catch {}
-    });
-    app.get("/testFoods", async (req, res) => {
-      const query = {};
-      const cursor = testFoodsCollection.find(query);
-      const food = await cursor.toArray();
-      res.send(food);
-    });
-    app.get("/testProducts/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const product = await testProductsCollection.findOne(query);
-      res.send(product);
-    });
-    app.post("/addproduct", async (req, res) => {
-      const product = req.body;
-      const result = await testProductsCollection.insertOne(product);
-      res.send(result);
-    });
-    //shop
-    app.get("/testShops", async (req, res) => {
-      const query = {};
-      const cursor = testShopsCollection.find(query);
-      const shops = await cursor.toArray();
-      res.send(shops);
-    });
-    app.get("/locateShops/:id", async (req, res) => {
-      const id = req.params.id;
-      const cursor = testProductsCollection.find({
-        shopLocation: { $regex: id },
-      });
-      const shops = await cursor.toArray();
-      res.send(shops);
-    });
-    app.get("/shops/:shopName", async (req, res) => {
-      const shopName = req.params.shopName;
-      const query = { shopName: shopName };
-      const cursor = testProductsCollection.find(query);
-      const shop = await cursor.toArray();
-      res.send(shop);
-    });
-    //category
-    app.get("/category/:categoryName", async (req, res) => {
-      const categoryName = req.params.categoryName;
-      const query = { productCategory: categoryName };
-      const cursor = testProductsCollection.find(query);
-      const category = await cursor.toArray();
-      res.send(category);
-    });
-    app.get("/subCategory/:subCategoryName", async (req, res) => {
-      const subCategoryName = req.params.subCategoryName;
-      const query = { productSubCategory: subCategoryName };
-      const cursor = testProductsCollection.find(query);
-      const subCategory = await cursor.toArray();
-      res.send(subCategory);
-    });
+    // //products
+    // app.get("/testProducts", async (req, res) => {
+    //   const query = {};
+    //   const cursor = testProductsCollection.find(query);
+    //   const products = await cursor.toArray();
+    //   res.send(products);
+    // });
+    // app.get("/testCartProducts", async (req, res) => {
+    //   const cartId = req.body;
+    //   console.log(cartId);
+    //   const cart = [];
+    //   const cartInReq = [cartId._id];
+    //   // cartId.map((id) => {
+    //   //   cartInReq.push(ObjectId(id));
+    //   // });
+    //   try {
+    //     const cursor = testProductsCollection.find({
+    //       _id: {
+    //         $in: ObjectId(cartInReq),
+    //       },
+    //     });
+    //     const product = await cursor.toArray();
+    //     cart.push(product);
+    //     res.send(cart);
+    //   } catch {}
+    // });
+    // app.get("/testFoods", async (req, res) => {
+    //   const query = {};
+    //   const cursor = testFoodsCollection.find(query);
+    //   const food = await cursor.toArray();
+    //   res.send(food);
+    // });
+    // app.get("/testProducts/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: ObjectId(id) };
+    //   const product = await testProductsCollection.findOne(query);
+    //   res.send(product);
+    // });
+    // app.post("/addproduct", async (req, res) => {
+    //   const product = req.body;
+    //   const result = await testProductsCollection.insertOne(product);
+    //   res.send(result);
+    // });
+    // //shop
+    // app.get("/testShops", async (req, res) => {
+    //   const query = {};
+    //   const cursor = testShopsCollection.find(query);
+    //   const shops = await cursor.toArray();
+    //   res.send(shops);
+    // });
+    // app.get("/locateShops/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const cursor = testProductsCollection.find({
+    //     shopLocation: { $regex: id },
+    //   });
+    //   const shops = await cursor.toArray();
+    //   res.send(shops);
+    // });
+    // app.get("/shops/:shopName", async (req, res) => {
+    //   const shopName = req.params.shopName;
+    //   const query = { shopName: shopName };
+    //   const cursor = testProductsCollection.find(query);
+    //   const shop = await cursor.toArray();
+    //   res.send(shop);
+    // });
+    // //category
+    // app.get("/category/:categoryName", async (req, res) => {
+    //   const categoryName = req.params.categoryName;
+    //   const query = { productCategory: categoryName };
+    //   const cursor = testProductsCollection.find(query);
+    //   const category = await cursor.toArray();
+    //   res.send(category);
+    // });
+    // app.get("/subCategory/:subCategoryName", async (req, res) => {
+    //   const subCategoryName = req.params.subCategoryName;
+    //   const query = { productSubCategory: subCategoryName };
+    //   const cursor = testProductsCollection.find(query);
+    //   const subCategory = await cursor.toArray();
+    //   res.send(subCategory);
+    // });
 
     // temporary to add fields on
     // app.get("/addNewField", async (req, res) => {

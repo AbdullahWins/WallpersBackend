@@ -1,6 +1,16 @@
 // user controller
 const { usersCollection } = require("../database/db");
 
+//send grettings
+const sendGrettings = async (req, res) => {
+  try {
+    res.send("Lmao");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+};
+
 //get all users
 const getAllUsers = async (req, res) => {
   try {
@@ -50,6 +60,7 @@ const addOneUser = async (req, res) => {
 
 //exports
 module.exports = {
+  sendGrettings,
   getAllUsers,
   getOneUser,
   addOneUser,

@@ -1,4 +1,6 @@
 // user controller
+
+const { ObjectId } = require("mongodb");
 const { usersCollection } = require("../database/db");
 
 //send grettings
@@ -31,7 +33,7 @@ const getOneUser = async (req, res) => {
   console.log("lol");
   try {
     const userId = req.params.id;
-    const user = await usersCollection.findOne({ _id: ObjectId(userId) });
+    const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
     if (!user) {
       res.status(404).send("User not found");
     } else {

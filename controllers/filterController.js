@@ -3,6 +3,7 @@
 const { ObjectId } = require("mongodb");
 const { filtersCollection } = require("../database/db");
 
+//get all filters
 const getAllFilters = async (req, res) => {
   try {
     const query = {};
@@ -16,12 +17,49 @@ const getAllFilters = async (req, res) => {
   }
 };
 
-//query single filter
+// Get filters by types
+const getFiltersByType = async (req, res) => {
+  try {
+    const filterTypeName = req.params.typeName;
+    const filters = await filtersCollection
+      .find({ filterType: filterTypeName })
+      .toArray();
+    if (filters.length === 0) {
+      res.status(404).send("No filters found for the specified type");
+    } else {
+      res.send(filters);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Get filters by category
+const getFiltersByCategory = async (req, res) => {
+  try {
+    const filterCategoryName = req.params.categoryName;
+    const filters = await filtersCollection
+      .find({ filterCategory: filterCategoryName })
+      .toArray();
+    if (filters.length === 0) {
+      res.status(404).send("No filters found for the specified category");
+    } else {
+      res.send(filters);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+};
+
+//get single filter
 const getOneFilter = async (req, res) => {
-  console.log("lol");
   try {
     const filterId = req.params.id;
-    const filter = await filtersCollection.findOne({ _id: new ObjectId(filterId) });
+    const filter = await filtersCollection.findOne({
+      _id: new ObjectId(filterId),
+    });
     if (!filter) {
       res.status(404).send("Filter not found");
     } else {
@@ -50,6 +88,8 @@ const addOneFilter = async (req, res) => {
 
 module.exports = {
   getOneFilter,
+  getFiltersByCategory,
+  getFiltersByType,
   getAllFilters,
   addOneFilter,
 };
